@@ -1,8 +1,10 @@
 import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
+import { ContentChild } from "../content-child/content-child";
+import { Tab } from '../tab/tab';
 
 @Component({
   selector: 'app-test',
-  imports: [],
+  imports: [ContentChild, Tab],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
