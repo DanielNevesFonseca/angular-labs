@@ -9,7 +9,7 @@ import { Tab } from '../tab/tab';
   styleUrl: './content-child.css',
 })
 export class ContentChild {
-  tabs = contentChildren(Tab);
+  tabs = contentChildren<Tab>("tag");
 
   constructor() {
     effect(() => {
