@@ -1,9 +1,15 @@
-<!-- <input #TemplateVariable1 type="text" placeholder="some text..." value="Example string" class="border border-orange-600" />
+<input
+  #TemplateVariable1
+  type="text"
+  placeholder="some text..."
+  class="border border-orange-600"
+  (input)="setSignal($event)"
+/>
 
-<button class="bg-orange-600 text-white" (click)="changeTV1()">Change input</button> -->
+<!-- <button class="bg-orange-600 text-white" (click)="changeTV1()">Change input</button>
 
 <app-content-child>
   <app-tab #tag title="Profile">User profile settings go here.</app-tab>
   <app-tab #tag title="Security">Password changes go here.</app-tab>
   <app-tab #tag title="Billing">Credit card info goes here.</app-tab>
-</app-content-child>
+</app-content-child> -->
