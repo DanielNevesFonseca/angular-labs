@@ -14,7 +14,11 @@
   <app-tab #tag title="Billing">Credit card info goes here.</app-tab>
 </app-content-child> -->
 
-<input #inputRef type="text" placeholder="some text..." class="border border-orange-600" />
+<!-- OnChanges -->
+
+<!-- <input #inputRef type="text" placeholder="some text..." class="border border-orange-600" />
 <button (click)="changeInputValue(inputRef.value)">Change Value</button>
 
-<app-on-changes [dynamicText]="inputValue()"></app-on-changes>
+<app-on-changes [dynamicText]="inputValue()"></app-on-changes> -->
+
+<app-on-init [dynamicText]="'texto dinamico'"></app-on-init>

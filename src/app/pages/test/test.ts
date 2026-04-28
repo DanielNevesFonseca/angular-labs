@@ -20,10 +20,11 @@ import {
 import { ContentChild } from '../content-child/content-child';
 import { Tab } from '../tab/tab';
 import { OnChanges as OnChangesComponent } from '../on-changes/on-changes';
+import { OnInit as NgOnInit } from '../on-init/on-init';
 
 @Component({
   selector: 'app-test',
-  imports: [ContentChild, Tab, OnChangesComponent],
+  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
