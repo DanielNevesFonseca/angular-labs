@@ -1,6 +1,15 @@
 import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
   Component,
+  DestroyRef,
+  DoCheck,
   ElementRef,
+  inject,
+  OnChanges,
+  OnDestroy,
   OnInit,
   signal,
   SimpleChanges,
@@ -10,17 +19,35 @@ import {
 } from '@angular/core';
 import { ContentChild } from '../content-child/content-child';
 import { Tab } from '../tab/tab';
+import { OnChanges as OnChangesComponent } from '../on-changes/on-changes';
 
 @Component({
   selector: 'app-test',
-  imports: [ContentChild, Tab],
+  imports: [ContentChild, Tab, OnChangesComponent],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
-export class Test implements OnInit {
+export class Test
+  implements
+    OnInit,
+    OnChanges,
+    OnDestroy,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked
+{
+  private _destroyRef = inject(DestroyRef);
   readonly textInput: WritableSignal<string> = signal<string>('Some Text Here!');
 
   @ViewChild('TemplateVariable1') templateVariable1Ef!: ElementRef<HTMLInputElement>;
+
+  constructor() {
+    this._destroyRef.onDestroy(() => {
+      console.log('This component was destroyed!!!!');
+    });
+  }
 
   // Uso de ViewChild para manipular o DOM de um elemento dentro desse componente
   changeTV1() {
@@ -46,10 +73,41 @@ export class Test implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    
+  }
+
+  ngDoCheck(): void {
+    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+    //Add 'implements DoCheck' to the class.
+  }
+
+  ngAfterContentInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+    console.log('All Components inside TEST were initialized');
+  }
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
   }
 
   setSignal(event: Event) {
     this.textInput.set((event.target as HTMLInputElement).value as string);
   }
+
+  changeInputValue(value: string) {
+    this.inputValue.set(value);
+  }
+
+  inputValue = signal<string>('');
 }

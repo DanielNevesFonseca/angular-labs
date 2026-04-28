@@ -1,6 +1,6 @@
 <div class="tab-headers">
   @for (tab of tabs(); track tab) {
-    <button (click)="selectTab(tab)" [class.active]="tab.active()">
+    <button (click)="selectTab(tab)" [class.active]="tab.active()" class="border border-amber-500 px-8 py-4 cursor-pointer">
       {{ tab.title() }}
     </button>
   }
