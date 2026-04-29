@@ -21,24 +21,24 @@ import { ContentChild } from '../content-child/content-child';
 import { Tab } from '../tab/tab';
 import { OnChanges as OnChangesComponent } from '../on-changes/on-changes';
 import { OnInit as NgOnInit } from '../on-init/on-init';
+import { DoCheck as NgDoCheck } from "../do-check/do-check";
 
 @Component({
   selector: 'app-test',
-  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit],
+  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit, NgDoCheck],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
 export class Test
   implements
-    OnInit,
-    OnChanges,
-    OnDestroy,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked
-{
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked {
   private _destroyRef = inject(DestroyRef);
   readonly textInput: WritableSignal<string> = signal<string>('Some Text Here!');
 
@@ -109,6 +109,17 @@ export class Test
   changeInputValue(value: string) {
     this.inputValue.set(value);
   }
+
+  insertValueInList(newValue: string): void {
+    this.stringList.update(value => [...value, newValue])
+  }
+
+  removeItem = (item: string) => {
+    this.stringList.set([...this.stringList().filter(task => task != item)])
+
+  }
+
+  stringList = signal<string[]>([])
 
   inputValue = signal<string>('');
 }

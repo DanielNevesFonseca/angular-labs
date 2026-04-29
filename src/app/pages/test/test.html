@@ -21,4 +21,9 @@
 
 <app-on-changes [dynamicText]="inputValue()"></app-on-changes> -->
 
-<app-on-init [dynamicText]="'texto dinamico'"></app-on-init>
+<!-- <app-on-init [dynamicText]="'texto dinamico'"></app-on-init> -->
+
+<input placeholder="Valor a inserir na lista" #inputDoCheckList />
+<button class="bg-orange-600 text-white" (click)="insertValueInList(inputDoCheckList.value)">Change input</button>
+
+<app-do-check [tarefas]="stringList()" [onRemoveItem]="removeItem"></app-do-check>
