@@ -32,15 +32,14 @@ import { ChildrenComponents } from '../children-components/children-components';
 })
 export class Test
   implements
-    OnInit,
-    OnChanges,
-    OnDestroy,
-    DoCheck,
-    AfterContentInit,
-    AfterContentChecked,
-    AfterViewInit,
-    AfterViewChecked
-{
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  DoCheck,
+  AfterContentInit,
+  AfterContentChecked,
+  AfterViewInit,
+  AfterViewChecked {
   private _destroyRef = inject(DestroyRef);
   readonly textInput: WritableSignal<string> = signal<string>('Some Text Here!');
 
@@ -115,6 +114,17 @@ export class Test
   changeInputValue(value: string) {
     this.inputValue.set(value);
   }
+
+  insertValueInList(newValue: string): void {
+    this.stringList.update(value => [...value, newValue])
+  }
+
+  removeItem = (item: string) => {
+    this.stringList.set([...this.stringList().filter(task => task != item)])
+
+  }
+
+  stringList = signal<string[]>([])
 
   inputValue = signal<string>('');
 }
