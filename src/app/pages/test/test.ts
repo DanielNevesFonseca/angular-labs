@@ -14,6 +14,7 @@ import {
   signal,
   SimpleChanges,
   TemplateRef,
+  viewChild,
   ViewChild,
   WritableSignal,
 } from '@angular/core';
@@ -21,10 +22,11 @@ import { ContentChild } from '../content-child/content-child';
 import { Tab } from '../tab/tab';
 import { OnChanges as OnChangesComponent } from '../on-changes/on-changes';
 import { OnInit as NgOnInit } from '../on-init/on-init';
+import { ChildrenComponents } from '../children-components/children-components';
 
 @Component({
   selector: 'app-test',
-  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit],
+  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit, ChildrenComponents],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -43,6 +45,8 @@ export class Test
   readonly textInput: WritableSignal<string> = signal<string>('Some Text Here!');
 
   @ViewChild('TemplateVariable1') templateVariable1Ef!: ElementRef<HTMLInputElement>;
+
+  appChildrenTemplateRef = viewChild(ChildrenComponents);
 
   constructor() {
     this._destroyRef.onDestroy(() => {
@@ -84,12 +88,14 @@ export class Test
   ngAfterContentInit(): void {
     //Called after ngOnInit when the component's or directive's content has been initialized.
     //Add 'implements AfterContentInit' to the class.
-    console.log('All Components inside TEST were initialized');
   }
 
   ngAfterContentChecked(): void {
     //Called after every check of the component's or directive's content.
     //Add 'implements AfterContentChecked' to the class.
+    console.log('AQUI ----- !');
+    const jokeRetrievedParent = this.appChildrenTemplateRef()?._jokeApiService.joke();
+    console.log('This joke was retrieved from PARENT: ', jokeRetrievedParent);
   }
 
   ngAfterViewInit(): void {
