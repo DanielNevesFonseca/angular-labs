@@ -4,6 +4,7 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
+  ComponentRef,
   DestroyRef,
   DoCheck,
   ElementRef,
@@ -14,6 +15,7 @@ import {
   signal,
   SimpleChanges,
   TemplateRef,
+  Type,
   viewChild,
   ViewChild,
   WritableSignal,
@@ -23,29 +25,35 @@ import { Tab } from '../tab/tab';
 import { OnChanges as OnChangesComponent } from '../on-changes/on-changes';
 import { OnInit as NgOnInit } from '../on-init/on-init';
 import { ChildrenComponents } from '../children-components/children-components';
+import { CommonModule } from '@angular/common';
+import { ButtonA } from '../../components/button-a/button-a';
+import { ButtonB } from '../../components/button-b/button-b';
 
 @Component({
   selector: 'app-test',
-  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit, ChildrenComponents],
+  imports: [ContentChild, Tab, OnChangesComponent, NgOnInit, ChildrenComponents, CommonModule],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
 export class Test
   implements
-  OnInit,
-  OnChanges,
-  OnDestroy,
-  DoCheck,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked {
+    OnInit,
+    OnChanges,
+    OnDestroy,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked
+{
   private _destroyRef = inject(DestroyRef);
   readonly textInput: WritableSignal<string> = signal<string>('Some Text Here!');
 
   @ViewChild('TemplateVariable1') templateVariable1Ef!: ElementRef<HTMLInputElement>;
 
   appChildrenTemplateRef = viewChild(ChildrenComponents);
+  stringList = signal<string[]>([]);
+  inputValue = signal<string>('');
 
   constructor() {
     this._destroyRef.onDestroy(() => {
@@ -116,15 +124,18 @@ export class Test
   }
 
   insertValueInList(newValue: string): void {
-    this.stringList.update(value => [...value, newValue])
+    this.stringList.update((value) => [...value, newValue]);
   }
 
   removeItem = (item: string) => {
-    this.stringList.set([...this.stringList().filter(task => task != item)])
+    this.stringList.set([...this.stringList().filter((task) => task != item)]);
+  };
 
+  /** RENDERING COMPONENTS DYNAMICALLY - PROGRAMMATICALY */
+
+  toogleButton = signal(true);
+
+  GetCorrectButton(): Type<ButtonA | ButtonB> {
+    return this.toogleButton() ? ButtonA : ButtonB;
   }
-
-  stringList = signal<string[]>([])
-
-  inputValue = signal<string>('');
 }

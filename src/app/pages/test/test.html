@@ -22,7 +22,9 @@
 <app-on-changes [dynamicText]="inputValue()"></app-on-changes> -->
 
 <!-- <app-on-init [dynamicText]="'texto dinamico'"></app-on-init> -->
-
-<app-children-components #appChildren ></app-children-components>
-
 <!-- <app-do-check [tarefas]="stringList()" [onRemoveItem]="removeItem"></app-do-check> -->
+
+<!-- <app-children-components #appChildren ></app-children-components> -->
+
+<button class="font-bold uppercase border bg-gray-300 px-5 py-2.5 mr-10 cursor-pointer" (click)="toogleButton.update((value) => !value)">Change Componente - .TS</button>
+<ng-container *ngComponentOutlet="GetCorrectButton()"></ng-container>
