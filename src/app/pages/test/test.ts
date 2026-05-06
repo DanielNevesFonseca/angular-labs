@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   Component,
   ComponentRef,
+  computed,
   DestroyRef,
   DoCheck,
   ElementRef,
@@ -134,6 +135,13 @@ export class Test
   /** RENDERING COMPONENTS DYNAMICALLY - PROGRAMMATICALY */
 
   toogleButton = signal(true);
+
+  buttonAInputs = signal({ title: 'Sou Gay', alertMessage: 'Olha gente eu sou gay!' });
+  buttonBInputs = signal({ title: 'Você é Gay', alertMessage: 'Olha gente ele é gay!' });
+
+  ReturnCorrentInput = computed(() =>
+    this.toogleButton() ? this.buttonAInputs() : this.buttonBInputs()
+  );
 
   GetCorrectButton(): Type<ButtonA | ButtonB> {
     return this.toogleButton() ? ButtonA : ButtonB;

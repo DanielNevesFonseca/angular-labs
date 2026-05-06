@@ -27,4 +27,4 @@
 <!-- <app-children-components #appChildren ></app-children-components> -->
 
 <button class="font-bold uppercase border bg-gray-300 px-5 py-2.5 mr-10 cursor-pointer" (click)="toogleButton.update((value) => !value)">Change Componente - .TS</button>
-<ng-container *ngComponentOutlet="GetCorrectButton()"></ng-container>
+<ng-container *ngComponentOutlet="GetCorrectButton(); inputs: ReturnCorrentInput()"></ng-container>

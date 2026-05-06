@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-button-a',
@@ -6,4 +6,11 @@ import { Component } from '@angular/core';
   templateUrl: './button-a.html',
   styleUrl: './button-a.css',
 })
-export class ButtonA {}
+export class ButtonA {
+  title = input.required<string>();
+  alertMessage = input<string>();
+
+  alertAction() {
+    window.alert(this.alertMessage());
+  }
+}
